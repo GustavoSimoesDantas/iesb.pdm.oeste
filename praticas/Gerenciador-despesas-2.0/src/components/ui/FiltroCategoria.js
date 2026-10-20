@@ -12,6 +12,7 @@ export default function FiltroCategoria({ selecionada, onSelecionar }) {
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
+      style={styles.scroll}
       contentContainerStyle={styles.container}
     >
       {OPCOES.map((opcao) => {
@@ -47,7 +48,12 @@ export default function FiltroCategoria({ selecionada, onSelecionar }) {
 }
 
 const styles = StyleSheet.create({
+  // Sem isso a ScrollView horizontal estica e ocupa a altura da tela
+  scroll: {
+    flexGrow: 0,
+  },
   container: {
+    alignItems: 'center',
     gap: 8,
     paddingVertical: 4,
   },
