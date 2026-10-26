@@ -14,13 +14,18 @@ import { useExpenses } from '../../store/expenses-context';
 import AppButton from '../../components/AppButton';
 import { colors } from '../../constants/colors';
 
+// Formato brasileiro: R$ 32,50
+function formatBRL(value) {
+  return `R$ ${value.toFixed(2).replace('.', ',')}`;
+}
+
 export default function WalletScreen() {
   const { expenses, addExpense, deleteExpense } = useExpenses();
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
 
   const total = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
-  const totalText = `R$ ${total.toFixed(2)}`;
+  const totalText = formatBRL(total);
 
   function handleAdd() {
     const value = parseFloat(amount.replace(',', '.'));
@@ -94,7 +99,7 @@ export default function WalletScreen() {
               {new Date(item.date).toLocaleDateString('pt-BR')}
             </Text>
           </View>
-          <Text style={styles.itemAmount}>R$ {Number(item.amount).toFixed(2)}</Text>
+          <Text style={styles.itemAmount}>{formatBRL(Number(item.amount))}</Text>
           <Pressable onPress={() => deleteExpense(item.id)} hitSlop={8}>
             <Ionicons name="trash-outline" size={20} color={colors.danger} />
           </Pressable>

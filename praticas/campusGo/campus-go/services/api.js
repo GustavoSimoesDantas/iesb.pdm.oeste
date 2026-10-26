@@ -5,7 +5,13 @@ async function request(path, options) {
     throw new Error('EXPO_PUBLIC_API_URL não foi definida no arquivo .env.');
   }
 
-  const response = await fetch(`${BASE_URL}/${path}`, options);
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}/${path}`, options);
+  } catch {
+    // Falha de rede vem em inglês ("Network request failed"): troca por uma mensagem em português
+    throw new Error('Não foi possível conectar ao servidor. Verifique a internet ou a URL da API.');
+  }
 
   if (!response.ok) {
     throw new Error(`O servidor respondeu com erro ${response.status}.`);

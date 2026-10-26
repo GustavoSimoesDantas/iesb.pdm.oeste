@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { pickImage, takePhoto } from '../../services/media';
@@ -39,11 +39,19 @@ export default function ProfileScreen() {
   }
 
   async function handlePickImage() {
-    savePhoto(await pickImage());
+    try {
+      savePhoto(await pickImage());
+    } catch {
+      Alert.alert('Erro', 'Não foi possível abrir a galeria.');
+    }
   }
 
   async function handleTakePhoto() {
-    savePhoto(await takePhoto());
+    try {
+      savePhoto(await takePhoto());
+    } catch {
+      Alert.alert('Erro', 'Não foi possível abrir a câmera.');
+    }
   }
 
   return (
