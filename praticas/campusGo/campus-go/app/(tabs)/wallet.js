@@ -142,11 +142,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.text,
   },
+  // minWidth 0 deixa os campos encolherem em telas estreitas
   inputDescription: {
     flex: 2,
+    minWidth: 0,
   },
   inputAmount: {
     flex: 1,
+    minWidth: 0,
   },
   addButton: {
     width: 46,
